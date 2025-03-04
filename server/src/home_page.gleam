@@ -1,9 +1,8 @@
 import client_components/redirect
-import db/board
+import db/dashboard
 import gleam/dynamic
 import gleam/dynamic/decode
 import gleam/option.{type Option, None, Some}
-import gleam/string
 import helpers/html_extra
 import lib/css
 import lib/flexbox
@@ -61,7 +60,7 @@ fn init(connection) {
 pub opaque type Msg {
   BluredDashboardName(value: String)
   Submitted
-  CreateBoardResponse(Result(uuid.Uuid, board.CreateBoardError))
+  CreateBoardResponse(Result(uuid.Uuid, dashboard.CreateBoardError))
 }
 
 fn update(state: State, msg: Msg) -> #(State, effect.Effect(Msg)) {
@@ -84,7 +83,7 @@ fn update(state: State, msg: Msg) -> #(State, effect.Effect(Msg)) {
             State(..state, is_submitting: True),
             effect.from(fn(dispatch) {
               dispatch(
-                CreateBoardResponse(board.create_board(state.connection, name)),
+                CreateBoardResponse(dashboard.create(state.connection, name)),
               )
             }),
           )

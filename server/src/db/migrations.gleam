@@ -1,8 +1,8 @@
-import db/board
+import db/dashboard
 import shork
 
 pub fn run(connection) {
-  let query = board.create_table_query()
+  let query = dashboard.migrations()
 
   shork.query(query)
   |> shork.execute(connection)
